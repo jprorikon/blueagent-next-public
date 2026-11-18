@@ -1,60 +1,62 @@
 # BlueAgent Next — Public Demo
 
-实体优先的多角色 AI 运行时演示。项目展示如何从事件接入、路由、记忆披露、人格组装，到 Web / App 客户端交付，构建一条可恢复、可测试的完整链路。
+**Language**: English | [日本語](README.ja.md) | [中文](README.zh.md)
 
-> 本目录是专门整理的求职演示版。默认使用离线 Mock，不包含真实用户数据、访问令牌、内部服务地址、开发签名或第三方角色素材。
+An entity-first, multi-character AI runtime demo. This project demonstrates how to build a recoverable, testable end-to-end pipeline from event ingestion, routing, memory disclosure, and persona assembly to Web and App client delivery.
 
-## 核心能力
+> This repository is a sanitized public portfolio version. It runs on an offline Mock brain by default and contains no real user data, access tokens, internal service endpoints, developer signing keys, or third-party character assets.
 
-- **无显式会话管理**：由 `(scope, entity, scene, purpose)` 推导线程并自动切片。
-- **多实体与多身份**：记忆、关系、立场、声音、注意力均归属于 `CharacterEntity`。
-- **记忆访问边界**：只有当前在场者属于记忆的 `audience` 时才可召回。
-- **可替换模型层**：默认 Mock；也可连接 OpenAI 兼容端点。
-- **持久化与恢复**：线程、事实、片段、活动、租约和 outbox 均支持落盘。
-- **多端交付**：包含 Owner Web 调试台、独立 App Server、Unity 手机端与 Quest 3 MR 代码。
-- **工程护栏**：包含分层、接口契约、权限、记忆隔离、流式交付和持久化测试。
+## Core Capabilities
 
-## 快速启动
+- **Implicit Session Management**: Derives and slices threads automatically from `(scope, entity, scene, purpose)` without explicit session creation.
+- **Multi-Entity & Multi-Identity**: Memories, relationships, stances, voice, and attention are scoped to `CharacterEntity`.
+- **Data-Boundary Memory Disclosure**: Memories are recalled only when all currently present participants belong to the memory's `audience` (`present ⊆ fact.audience`).
+- **Pluggable Model Layer**: Runs offline via Mock mode (`BLUEAGENT_BRAIN=mock`) by default, or connects to any OpenAI-compatible endpoint.
+- **Persistence & Recovery**: Threads, facts, episodes, activities, leases, and outbox frames are persisted to disk with cursor-based SSE reconnection recovery.
+- **Multi-Client Delivery**: Includes an Owner Web debug console, standalone App Server, Unity mobile client, and Quest 3 MR project.
+- **Engineering Guardrails**: Includes automated tests for package layering, API contracts, permissions, memory isolation, streaming delivery, and persistence recovery.
 
-要求 Python 3.11+。核心 Mock 演示仅使用 Python 标准库。
+## Quick Start
+
+Requires Python 3.11+. The core Mock demo uses only the Python standard library.
 
 ```bash
 cd blueagent-next-public
 BLUEAGENT_BRAIN=mock python3 agent/run.py
 ```
 
-首次启动会在本地生成 Owner token。按终端提示打开 Owner URL；token 只保存在本机运行目录，不应提交。
+On first launch, an Owner token is generated locally. Open the Owner URL printed in your terminal (the token is stored only in your local runtime directory and should never be committed):
 
 ```text
 http://127.0.0.1:8787/
 ```
 
-## 离线测试
+## Offline Tests
 
 ```bash
 python3 agent/tests/run_all.py
 ```
 
-部分语音测试需要可选依赖；核心演示不依赖外部模型或网络服务。
+Some voice tests require optional dependencies; the core demo has no external model or network dependencies.
 
-## 连接自己的模型
+## Connecting Your Own Model
 
-复制示例文件到仓库外或保持 `.env` 仅在本机，再显式指定：
+Copy the example environment file outside the repository or keep `.env` local only, then specify it explicitly:
 
 ```bash
 cp .env.example .env
-# 编辑 .env，填入自己的兼容端点与密钥
+# Edit .env with your OpenAI-compatible endpoint and API key
 BLUEAGENT_ENV_FILE=.env python3 agent/run.py
 ```
 
-不要把 `.env`、真实 token 或运行数据提交到仓库。
+Never commit `.env`, real tokens, or runtime data to the repository.
 
 ## Docker Compose
 
-App Server 不会绕过账号初始化。先用本地 Agent 生成 Owner 账号，再为 App Server 生成虚构的本地账号与实体 token：
+The App Server does not bypass account initialization. First start the local Agent to generate `data/accounts.json`, then provision fictional local accounts and entity tokens for the App Server:
 
 ```bash
-# 首次启动后按 Ctrl+C 停止；此时已生成本地 data/accounts.json
+# Press Ctrl+C after first startup; local data/accounts.json is now generated
 BLUEAGENT_BRAIN=mock python3 agent/run.py
 
 python3 agent/tools/provision_app_server.py \
@@ -65,39 +67,39 @@ python3 agent/tools/provision_app_server.py \
 BLUEAGENT_BRAIN=mock docker compose up --build
 ```
 
-`data/`、`app-data/`、`app-secrets/` 均被 Git 忽略。Compose 默认启动 Agent 与 App Server；网关仅在显式启用 `gateway` profile 时启动，不连接任何私人基础设施。
+`data/`, `app-data/`, and `app-secrets/` are all git-ignored. Compose starts the Agent and App Server by default; the gateway starts only when the `gateway` profile is explicitly enabled and does not connect to any private infrastructure.
 
-## 目录
+## Directory Structure
 
 ```text
 agent/
-  brain/        领域模型、路由、记忆、人格与运行时
-  adapter/      Discord、TRPG、App、语音等外部适配器
-  server/       Agent HTTP / SSE 与管理接口
-  client/       Owner Web 调试台
-  persona/      原创虚构角色与共同人格规则
-  tests/        Agent 离线验收
+  brain/        Domain models, routing, memory, persona, and runtime
+  adapter/      External adapters (Discord, TRPG, App, voice, etc.)
+  server/       Agent HTTP / SSE and management endpoints
+  client/       Owner Web debug console
+  persona/      Original fictional characters and shared persona rules
+  tests/        Agent offline acceptance tests
 app/
-  server/       独立账号、会话、公共区与媒体服务
-  client/       Unity 客户端、共享 C# 逻辑与原创几何素材
-  tests/        App Server 与客户端契约测试
-mr/             Quest 3 专有工程
-docs/           架构、接口、术语与生成文档
+  server/       Standalone account, session, public area, and media service
+  client/       Unity client, shared C# logic, and procedural geometric assets
+  tests/        App Server and client contract tests
+mr/             Quest 3 MR project
+docs/           Architecture, API contracts, glossary, and generated docs
 ```
 
-## 公开版边界
+## Public Edition Boundaries
 
-- 三位默认角色 **Mira、Aster、Nori** 及额外示例角色 **Lumi** 均为原创虚构角色。
-- 立绘、头像、背景与表情包均为程序生成的抽象几何图形。
-- 不包含第三方角色模型。3D 加载入口保留，未提供模型时回退到 2D。
-- 不包含预编译原生库；移动端相关构建需自行准备对应依赖。
-- Android 构建使用开发者本机签名，仓库不提供 keystore。
-- 当前未指定项目级开源许可证；公开可读不代表授予再分发权。第三方组件仍按各自许可处理，见 `THIRD_PARTY_NOTICES.md`。
+- The three default characters **Mira, Aster, Nori** and additional sample character **Lumi** are original fictional characters.
+- Portraits, avatars, backgrounds, and stickers are procedurally generated abstract geometric graphics.
+- No third-party character models are included. 3D loading hooks are preserved and fall back to 2D when no model is provided.
+- No prebuilt native libraries are included; mobile builds require preparing the corresponding dependencies locally.
+- Android builds use a developer-local signing key; no keystore is included in this repository.
+- No project-wide open-source license is granted; public readability does not grant redistribution rights. Third-party components are governed by their respective notices in `THIRD_PARTY_NOTICES.md`.
 
-## 设计文档
+## Design Documentation
 
-- `DESIGN.md`：架构与安全边界摘要。
-- `docs/APP-API-SSE.md`：App / Agent 接口契约。
-- `docs/accounts-and-clients.md`：账号与客户端身份模型。
-- `docs/FILE-TREE.md`：生成的文件树。
-- `docs/ENVIRONMENT.md`：生成的环境变量表。
+- `DESIGN.md`: Architecture and security boundary summary.
+- `docs/APP-API-SSE.md`: App / Agent API & SSE contract.
+- `docs/accounts-and-clients.md`: Account and client identity model.
+- `docs/FILE-TREE.md`: Generated file tree.
+- `docs/ENVIRONMENT.md`: Generated environment variables reference.
