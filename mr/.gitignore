@@ -1,0 +1,18 @@
+# 組合工程、Unity 快取與 APK 均可重建；BA_MR_BUILD_ROOT 可改放外置碟。
+.build/
+Builds/
+*.log
+
+# 若直接在組合工程內開 Unity，這些目錄也不進版控。
+BlueAgentUnity/Library/
+BlueAgentUnity/Temp/
+BlueAgentUnity/Obj/
+BlueAgentUnity/Logs/
+BlueAgentUnity/UserSettings/
+*.csproj.user
+*.unitypackage
+.DS_Store
+
+# XR Simulation 的個人偏好（編輯器專用、每人不同；Unity 建在 Assets 底下，但不該共用）
+BlueAgentUnity/Assets/XR/UserSimulationSettings/
+BlueAgentUnity/Assets/XR/UserSimulationSettings.meta

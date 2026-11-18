@@ -1,0 +1,10 @@
+{
+  "name": "com.blueagent.logic",
+  "version": "0.1.0",
+  "displayName": "BlueAgent Logic",
+  "description": "BlueAgent 共用邏輯層（呈現層與集成層之間的判斷都在這裡，不碰平台 API）。真值＝fixtures/ 由 Kotlin 側機器產生，C# 逐欄對拍。",
+  "unity": "6000.6",
+  "author": { "name": "BlueAgent" },
+  "keywords": ["blueagent", "logic", "shared"],
+  "type": "library"
+}

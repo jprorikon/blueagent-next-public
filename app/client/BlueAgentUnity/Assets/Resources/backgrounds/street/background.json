@@ -1,0 +1,40 @@
+{
+  "id": "street",
+  "name": "商店街",
+  "tag": "SHOPPING STREET",
+  "image": "bg.jpg",
+  "thumb": "thumb.jpg",
+  "dim": 14,
+  "variants": [
+    {
+      "slot": "dawn",
+      "name": "清晨",
+      "image": "dawn.jpg",
+      "thumb": "dawn_thumb.jpg"
+    },
+    {
+      "slot": "morning",
+      "name": "上午",
+      "image": "morning.jpg",
+      "thumb": "morning_thumb.jpg"
+    },
+    {
+      "slot": "noon",
+      "name": "正午",
+      "image": "noon.jpg",
+      "thumb": "noon_thumb.jpg"
+    },
+    {
+      "slot": "dusk",
+      "name": "黃昏",
+      "image": "dusk.jpg",
+      "thumb": "dusk_thumb.jpg"
+    },
+    {
+      "slot": "night",
+      "name": "深夜",
+      "image": "night.jpg",
+      "thumb": "night_thumb.jpg"
+    }
+  ]
+}

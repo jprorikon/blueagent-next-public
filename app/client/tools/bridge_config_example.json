@@ -1,0 +1,11 @@
+{
+  "_note": "殼的橋設定（Unity 這一側）。放到**裝置上**的 app 私有目錄，用 adb push：adb push bridge.json /sdcard/Android/data/dev.deepsea.blueagent.unity/files/bridge.json —— 這一份是範例，**真的那一份（含 token）不要進版控**。也可以走 intent extra 覆寫：am start … --es baBridgeUrl … --es baBridgeToken …（見 DeviceIntent）。",
+
+  "url": "http://<橋的位址>:8900",
+  "token": "<STREAM_TOKEN>",
+  "device": "unity-spike",
+  "session": "",
+  "soul": "aster",
+  "mode": "chat",
+  "tts": true
+}

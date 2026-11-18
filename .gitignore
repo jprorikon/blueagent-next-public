@@ -1,0 +1,56 @@
+__pycache__/
+*.pyc
+.DS_Store
+# macOS 拷到外接碟／SMB 時產生的 AppleDouble 檔（2026-10-28 清掉過 4 個誤收的）
+._*
+
+# runtime state, secrets, audit, model/token data
+/data/
+/app-data/
+/app-secrets/
+# 執行期產物（prompt dump 除錯檔等）只留本機
+/out/
+# 驗收／建置的本機產物（日誌、截圖、build）：留在本機，不進版控（2026-11-09 整理；是符號連結，規則不帶斜線）
+/artifacts
+/build
+
+# 一次性審查報告只留在本機（README：一次性審計不留在倉裡）
+/review.md
+/structure-review.md
+/unity-review.md
+
+# Unity 執行期暫存（可重建，不入版控）
+/app/client/BlueAgentUnity/.utmp/
+
+# 公共區工具的每日用量（執行時狀態，測試也會產生）
+/board-access.json
+
+# Compose 用的本機環境檔（含 TTS token 等憑證，不入版控）
+/.env
+/.env.bak*
+
+# Public-release safeguards
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+*.pem
+*.key
+*.so
+*.a
+*.dll
+*.dylib
+/data/
+/app-data/
+/app-secrets/
+/out/
+/artifacts/
+/build/
+**/Library/
+**/Logs/
+**/Temp/
+**/obj/
+**/bin/

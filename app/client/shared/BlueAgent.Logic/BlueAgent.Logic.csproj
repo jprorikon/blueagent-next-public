@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    共用邏輯層（C#）——**這一包是 Unity 吃的本體**（netstandard2.1 是 Unity 的相容線）。
+    owner 2026-10-11 定案：「邏輯層共通用 C# 這樣桌面之後邏輯層不用重寫」。
+    判準：與 Kotlin 那一份（blueagent/live2d/android/kmp）**逐條對拍**，
+    真值＝`fixtures/*.json`（由 Kotlin 側的 LogicFixtureExportTest 機器產生）。
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>BlueAgent.Logic</RootNamespace>
+    <AssemblyName>BlueAgent.Logic</AssemblyName>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+</Project>

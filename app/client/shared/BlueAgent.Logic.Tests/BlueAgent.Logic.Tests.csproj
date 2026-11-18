@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    fixture 對拍測試（NUnit）。跑法：`dotnet test`（NAS 上 ~/.dotnet/dotnet）。
+    每一支測試＝讀 `fixtures/<module>.json`，把裡面的輸入餵進 C# 實作，逐欄比對 Kotlin 產生的輸出。
+    ⇒ 「移植等價」是機械判定的，不靠人眼看。
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>BlueAgent.Logic.Tests</RootNamespace>
+    <!-- fixtures 的位置：倉庫根（blueagent/unity）的 fixtures/；可用 BA_FIXTURES_DIR 覆蓋。 -->
+    <FixturesDir Condition="'$(FixturesDir)' == ''">$(MSBuildThisFileDirectory)../../fixtures</FixturesDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit" Version="4.2.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../BlueAgent.Logic/BlueAgent.Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(FixturesDir)/*.json" CopyToOutputDirectory="PreserveNewest" LinkBase="fixtures" />
+    <!-- Next 的界面文字表（NextTextTest 讀真檔：錯誤碼路徑會用到的 key 三語都要在） -->
+    <None Include="$(MSBuildThisFileDirectory)../../BlueAgentUnity/Assets/Resources/i18n/*.json"
+          CopyToOutputDirectory="PreserveNewest" LinkBase="i18n" />
+  </ItemGroup>
+
+</Project>

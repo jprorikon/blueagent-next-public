@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 2026-10-20 owner 给了新的 BlueAgent 标志（白底 + 蓝/黑字 + 椭圆环 + 蓝斜线）⇒
+         桌面图标改成「白底 + 该标志」：背景色纯白，前景是烤好的 PNG（mipmap-*/ic_launcher_foreground.png）。 -->
+    <color name="ic_launcher_background">#FFFFFF</color>
+</resources>

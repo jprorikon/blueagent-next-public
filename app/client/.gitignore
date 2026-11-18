@@ -1,0 +1,37 @@
+# .NET
+bin/
+obj/
+*.user
+# `dotnet test` 的產物統一放這裡（見 shared/Directory.Build.props——**不要**落在 UPM 本地包裡，
+# 否則 Unity 會把 obj/ 的 dll 當預編譯插件導入，同一批型別編兩次＝392 條 CS0436＋TypeDB 重複註冊）
+.build/
+
+# 工具（python）跑一次就會生出來的東西（`tools/webui_dump.py` 會 import 隔壁那支）
+__pycache__/
+
+# Unity（Unity 專案本體還沒建；先擋住會被 Unity 產生的東西）
+BlueAgentUnity/Library/
+# 本機把 Library／Builds 搬到外置盤、原處留符號連結（2026-11-08）；連結是「檔案」，帶斜線的規則擋不住
+BlueAgentUnity/Library
+BlueAgentUnity/Builds
+BlueAgentUnity/Temp/
+BlueAgentUnity/Obj/
+BlueAgentUnity/Builds/
+BlueAgentUnity/Logs/
+BlueAgentUnity/UserSettings/
+*.csproj.user
+Builds/
+
+# Live2D（Cubism SDK）支援已移除（owner 2026-10-30）；舊工作區殘留的 SDK 不得再進版控
+BlueAgentUnity/Assets/Live2D/
+BlueAgentUnity/Assets/Live2D.meta
+*.unitypackage
+
+# 殼的橋設定（**含 token**）：真的那一份只放裝置上（`adb push` 到 app 的私有目錄），
+# 版控裡留 `tools/bridge_config_example.json`（佔位符）。
+**/bridge.json
+!tools/bridge_config_example.json
+
+# 真機驗收的連拍幀（138MB，只在本機看；不進版控）
+tools/_frames/
+*.log

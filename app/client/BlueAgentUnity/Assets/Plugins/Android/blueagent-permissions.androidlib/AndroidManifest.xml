@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  **Android 程式庫**（`.androidlib`）：manifest 會**合併**進最終 manifest，不動 Unity 那一份主 manifest。
+
+  ⚠️ 2026-10-16 三個教訓（都踩過、都出過包）：
+  1. 寫 `Assets/Plugins/Android/AndroidManifest.xml`（主 manifest）＝把 Unity 那份**換掉**，
+     入口 activity 整條不見（裝上去從桌面點不開）。要用程式庫。
+  2. 把 `<application>` **拿掉**（activity 直接掛 `manifest` 下）⇒ Gradle 合併**直接失敗**
+     （`unexpected element <activity> found in <manifest>`）。`activity` **一定要**在 `application` 裡。
+  3. 桌面圖示：入口 activity 的 `icon` 空著時桌面會退回應用圖示，而 Unity 這份專案沒設圖示
+     ⇒ 一併把**舊 app 的整套圖示資源**（`res/`：adaptive icon 的 xml ＋ `drawable/ic_launcher_foreground.xml`
+     ＋ `values/colors.xml`）搬進這個程式庫，並在 activity 上指 `@mipmap/ic_launcher`。
+
+  ⚠️ 2026-10-17 **待結（今天改了又撤回，因為證據不足）**：
+  這一節今天動過兩次都被自己撤回，理由寫清楚，別再憑猜動手：
+  · 觀察：APK 的 manifest 裡同時有 `com.unity3d.player.UnityPlayerGameActivity`（本檔宣告、帶 MAIN/LAUNCHER）
+    與 `com.unity3d.player.UnityPlayerActivity`（Unity 自己生成的）。
+    模擬器上 `am start -n …/UnityPlayerGameActivity` 會 `ClassNotFoundException`（那個類不存在），
+    而 `cmd package resolve-activity`（加 `brief` 參數）回的是 `ResolverActivity`（歧義）。
+  · **但證據不足**：一整天的驗收腳本裡 `am start` 一直是**靜默失敗**（錯誤沒印出來），
+    app 其實是後來被誤點桌面圖示才起來的 ⇒ 「桌面上那一條指向幽靈類、點到就崩」這件事**沒被證實過**。
+  · 今天試過「改名成 UnityPlayerActivity ＋拿掉 intent-filter ＋ tools:node=remove」⇒ **Gradle 合併直接失敗**
+    （出包閘門正確擋下、沒有拉舊包）。⇒ 先還原成能出包的這一版，之後要用
+    `aapt2 dump xmltree` 數 activity 條數 ＋ `cmd package resolve-activity`（加 `brief`）＋ **真機點桌面圖示**
+    三條一起當判據，再決定要不要動。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="dev.deepsea.blueagent.permissions">
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 2026-10-18 原生能力（src/main/java/dev/deepsea/blueagent/shell/，照原 app 的 manifest 抄）：
+         前景服務（microphone 型；只能從前景起）、通知（前景服務那一行＋リマインド）、
+         大致位置（只為天氣，刻意不要 FINE）、相册（13+ READ_MEDIA_IMAGES、12 以下舊的那條）。 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="32" />
+    <!-- 「看截图」路線 A（2026-10-19 原型；無障礙なし）：浮き球＝他のアプリの上に表示、撮る＝MediaProjection。 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+
+    <!-- usesCleartextTraffic：橋是區網純 HTTP。Unity 的 UnityWebRequest 走自己的網路棧、不吃這條，
+         但 Java 這一側（位置推送、熄屏耳朵）的 HttpURLConnection 吃——沒有它就是
+         「Cleartext HTTP traffic not permitted」。 -->
+    <application android:usesCleartextTraffic="true">
+        <activity android:name="com.unity3d.player.UnityPlayerGameActivity"
+                  android:exported="true"
+                  android:icon="@mipmap/ic_launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- 也是**主屏 app**（原 app 同一條，owner：「打包成启动器，这样我可以设置为主页」）：
+                 在系統設定把 BlueAgent 選成主屏 ⇒ 開機由系統起它（前景服務才起得來）、按 home 回到這裡。 -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <!-- 多設備配對（owner 2026-11-16）：系統相機掃二維碼 → `/pair/<碼>` 落地頁 → 這條深連結跳回 App
+                 （C# 端是 `Application.deepLinkActivated`／`absoluteURL`，`NextShell.OnDeepLink`）。 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="blueagent" android:host="pair" />
+            </intent-filter>
+        </activity>
+
+        <!-- 系統相册：透明、沒有畫面，只為了接 onActivityResult（Unity 的 activity 收不到）。 -->
+        <activity android:name="dev.deepsea.blueagent.shell.PickerActivity"
+                  android:exported="false"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service android:name="dev.deepsea.blueagent.shell.ShellService"
+                 android:exported="false"
+                 android:foregroundServiceType="microphone" />
+
+        <!-- 「看截图」（原 app 同一條）：accessibility サービスは撮るためだけ。有効にすると浮き球が出て、
+             押すと「今の画面を撮る → 圈選 → 一言そえて送る」。球は TYPE_ACCESSIBILITY_OVERLAY
+             （SYSTEM_ALERT_WINDOW 不要）。 -->
+        <service android:name="dev.deepsea.blueagent.shell.SeeAccessibilityService"
+                 android:exported="true"
+                 android:label="@string/app_name"
+                 android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data android:name="android.accessibilityservice"
+                       android:resource="@xml/see_service" />
+        </service>
+
+        <!-- 「看截图」路線 A：入口（透明）→ 系統の共有確認 → 撮影セッション（mediaProjection 型の前景服務）。
+             exported：クイック設定タイルと `am start`（檢證用）から起こせるように。確認は毎回系統が出す。
+             taskAffinity を分ける（2026-10-19 真機）：Unity と同じタスクに入ると、そのタスクを片付けたとき
+             Unity の activity ごと消える ⇒ Unity はプロセスを落とす ⇒ 撮影 token も死ぬ。 -->
+        <activity android:name="dev.deepsea.blueagent.shell.SeeProjectionActivity"
+                  android:exported="true"
+                  android:excludeFromRecents="true"
+                  android:taskAffinity="dev.deepsea.blueagent.see"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <service android:name="dev.deepsea.blueagent.shell.SeeProjection"
+                 android:exported="false"
+                 android:foregroundServiceType="mediaProjection" />
+        <service android:name="dev.deepsea.blueagent.shell.SeeTile"
+                 android:exported="true"
+                 android:label="看截图"
+                 android:icon="@drawable/ic_stat_blueagent"
+                 android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

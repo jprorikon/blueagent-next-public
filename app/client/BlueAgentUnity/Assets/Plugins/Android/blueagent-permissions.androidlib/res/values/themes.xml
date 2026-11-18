@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Framework theme on purpose: no AppCompat/Material dependency, so the build stays
+         small and nothing has to be resolved beyond AGP + Kotlin + OkHttp. -->
+    <style name="Theme.BlueAgent" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <!-- Full screen, on the owner's call: this screen is meant to be the phone's front page, and the
+             status bar sat on top of the ☰ button and the top-right icons. With the bar gone the page
+             owns the whole panel and every control is where it is drawn.
+             `windowFullscreen` is the theme-side switch. Android 15/16 have been known to ignore that
+             legacy flag for edge to edge apps, so the activity also hides the bars through
+             WindowInsetsController (see MainActivity.onCreate); whichever one the ROM honours, the
+             result is the same. (No double hyphens in this comment: an XML comment may not contain
+             them and the merger rejects the file outright.) -->
+        <item name="android:windowFullscreen">true</item>
+        <!-- 原生 UI 的拉丁字面：英文標籤與數字與網頁版逐字同寬（CJK 仍走系統字型，才會是
+             正確的地區字形）。字型是 Noto Sans CJK TC 的拉丁子集（OFL 1.1），
+             重製方式見 tools/build_latin_font_subset.py。2026-10-09：網頁版走
+             `'Segoe UI', 'Noto Sans TC', …` ⇒ 拉丁落 Noto，原生原本落 Roboto，實測
+             `STUDENT PROFILE 01` 差 7%（239 → 219 px）。 -->
+        <item name="android:fontFamily">@font/blueagent_latin</item>
+        <item name="android:windowBackground">#EBF8FF</item>
+        <item name="android:statusBarColor">#F88FA8</item>
+        <item name="android:navigationBarColor">#F1F6F9</item>
+    </style>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  **MR（Quest 3）包專用**的 Android 程式庫（2026-11-01，PLAN-mr-quest3 M3）：manifest 合併進 MR 包，手機包不帶
+  （`MrBuild.UsePhoneSetup` 把它從 Android 拿掉；MR 建置時掛上——跟手機那個 androidlib 正好相反）。
+
+  為什麼要自己宣告：
+  · 手部追蹤：XR Hands 的 OpenXR「Hand Tracking」功能**不會**替 app 寫這兩條（只有 hand mesh 那個功能會），
+    少了 Quest 就不給這個 app 手的資料，捏手指永遠沒反應。
+  · 麥克風：說話是「捏兩下開始、捏一下結束」錄音後送 `/api/audio`（owner 2026-11-01）。
+
+  ⚠️ 只能有 `uses-permission`／`uses-feature`；這裡**不要**宣告 activity（入口 activity 是 Unity 生的那一個，
+  Quest 的入口分類由 OpenXR 套件寫進去；手機那個 androidlib 的 launcher 教訓見它自己的註解）。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="dev.deepsea.blueagent.mrlib">
+    <uses-permission android:name="com.oculus.permission.HAND_TRACKING" />
+    <uses-feature android:name="oculus.software.handtracking" android:required="false" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+</manifest>

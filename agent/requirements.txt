@@ -1,0 +1,12 @@
+# 執行期依賴（image 內）——全部有 wheel，不含系統函式庫（見 Dockerfile 的 apt）。
+#
+# 版本刻意寬鬆：這些套件的小版本對行為沒影響，鎖死反而讓半年後建不起來。
+discord.py>=2.5,<3
+PyNaCl>=1.5
+davey>=0.1.7
+sherpa-onnx>=1.10
+numpy>=1.26
+# 語意檢索（本機 ONNX embedding；模型放 volume，不進 image）
+fastembed>=0.4
+# 多設備配對的二維碼（2026-11-16）：純 Python、無其他依賴；沒裝時配對照樣可用（只顯示 6 位數字）
+segno>=1.6,<2

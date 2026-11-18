@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>BlueAgent 管理台</title>
+<link rel="icon" href="/static/assets/logo.webp">
+<link rel="stylesheet" href="/static/admin.css">
+</head>
+<body>
+<header class="bar">
+  <div class="brand">
+    <img src="/static/assets/logo.webp" alt="">
+    <div>
+      <h1>BlueAgent 管理台</h1>
+      <p>脑端 · 只有主人能用</p>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="thoughts" aria-selected="true">思考日志</button>
+    <button role="tab" data-tab="mood" aria-selected="false">心情 AEM</button>
+    <button role="tab" data-tab="tasks" aria-selected="false">任务看板</button>
+    <button role="tab" data-tab="accounts" aria-selected="false">账号</button>
+  </nav>
+  <div class="who">
+    <select id="entity" aria-label="角色">
+      <option value="mira">ミラ</option>
+      <option value="aster">アスター</option>
+      <option value="nori">ノリ</option>
+    </select>
+    <button class="ghost" id="logout" hidden>退出</button>
+  </div>
+</header>
+
+<section id="login" class="card login" hidden>
+  <h2>主人 token</h2>
+  <p class="muted">和调试台共用同一个 token（存在这台浏览器里）。</p>
+  <form id="login-form">
+    <input id="token" type="password" autocomplete="off" placeholder="ot_… / ba_…" required>
+    <button type="submit">进入</button>
+  </form>
+  <p class="error" id="login-error" hidden></p>
+</section>
+
+<main id="app" hidden>
+  <!-- ① 思考日志 -->
+  <section class="panel" id="panel-thoughts">
+    <div class="row head">
+      <h2>此刻</h2>
+      <label class="toggle"><input type="checkbox" id="auto" checked> 每 15 秒刷新</label>
+      <button class="ghost" id="refresh-thoughts">刷新</button>
+    </div>
+    <div class="now" id="now"></div>
+    <div class="row head">
+      <h2>最近的思考</h2>
+      <div class="filters" id="kind-filters">
+        <label><input type="checkbox" value="monologue" checked> 独白</label>
+        <label><input type="checkbox" value="prethink" checked> 预想</label>
+        <label><input type="checkbox" value="mood" checked> 心情</label>
+        <label><input type="checkbox" value="private" checked> 私记</label>
+      </div>
+    </div>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <!-- ② 心情 AEM（owner 2026-11-09） -->
+  <section class="panel" id="panel-mood" hidden>
+    <div class="row head">
+      <h2>此刻</h2>
+      <label class="toggle"><input type="checkbox" id="mood-auto" checked> 每 15 秒刷新</label>
+      <button class="ghost" id="refresh-mood">刷新</button>
+      <span class="muted" id="mood-stamp"></span>
+    </div>
+    <div class="aem-now" id="aem-now"></div>
+
+    <div class="row head">
+      <h2>曲线</h2>
+      <div class="seg" role="group" aria-label="窗口">
+        <button data-hours="24" aria-pressed="true">24 小时</button>
+        <button data-hours="72" aria-pressed="false">3 天</button>
+        <button data-hours="168" aria-pressed="false">7 天</button>
+      </div>
+      <span class="muted">上：valence（−1…1）　下：arousal（0…1）；点是事件（绿升红降）</span>
+    </div>
+    <canvas id="aem-chart" class="aem-chart"></canvas>
+
+    <div class="row head"><h2>主要原因</h2><span class="muted">主人看不看得见这件事，决定她要不要先交代</span></div>
+    <p class="aem-cause" id="aem-cause"></p>
+
+    <div class="row head"><h2>最近事件</h2><span class="muted" id="aem-event-count"></span></div>
+    <div class="table-wrap">
+      <table class="aem-events">
+        <thead><tr><th>时间</th><th>种类</th><th>Δ valence</th><th>Δ arousal</th><th>对象</th><th>原因</th></tr></thead>
+        <tbody id="aem-events"></tbody>
+      </table>
+    </div>
+
+    <div class="row head"><h2>出口与主动消息</h2><span class="muted">她为什么没开口、独白走哪条路、闸的判定</span></div>
+    <div class="aem-now" id="aem-exit"></div>
+  </section>
+
+  <!-- ③ 任务看板 -->
+  <section class="panel" id="panel-tasks" hidden>
+    <div class="row head">
+      <h2>任务</h2>
+      <div class="seg" role="group" aria-label="视图">
+        <button data-view="board" aria-pressed="true">看板</button>
+        <button data-view="calendar" aria-pressed="false">日历</button>
+      </div>
+      <span class="muted" id="task-counts"></span>
+    </div>
+    <div id="board" class="board"></div>
+    <div id="calendar" class="calendar" hidden></div>
+  </section>
+
+  <!-- ③ 账号 -->
+  <section class="panel" id="panel-accounts" hidden>
+    <div class="row head"><h2>发行客人账号</h2></div>
+    <form class="card issue" id="issue-form">
+      <label>principal<input id="issue-principal" placeholder="guest-kiseki" required pattern="[a-z0-9_\-]{1,40}" title="小写字母、数字、_ 或 -"></label>
+      <label>显示名<input id="issue-display" placeholder="輝石"></label>
+      <button type="submit">发行</button>
+    </form>
+    <div class="card token-once" id="token-once" hidden>
+      <p><strong>新 token（只显示这一次）</strong></p>
+      <code id="token-value"></code>
+      <button class="ghost" id="copy-token">复制</button>
+    </div>
+    <div class="row head">
+      <h2>账号与外部账号</h2>
+      <span class="muted">核心账号在脑端；App／Discord 账号都绑在它身上</span>
+    </div>
+    <div class="table-wrap">
+      <table class="accounts">
+        <thead><tr><th>账号</th><th>身份</th><th>外部账号</th><th>绑定</th><th></th></tr></thead>
+        <tbody id="account-rows"></tbody>
+      </table>
+    </div>
+    <details class="card">
+      <summary>当前生效的绑定表</summary>
+      <table class="bindings"><tbody id="binding-rows"></tbody></table>
+    </details>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" hidden></div>
+<script src="/static/admin.js"></script>
+</body>
+</html>

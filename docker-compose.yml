@@ -1,0 +1,52 @@
+services:
+  blueagent-next:
+    build:
+      context: .
+      dockerfile: agent/Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+      BLUEAGENT_BRAIN: ${BLUEAGENT_BRAIN:-mock}
+      BLUEAGENT_CONTAINER_PORT: "18790"
+      BLUEAGENT_APP_SERVER_URL: http://app-server:8788
+      BLUEAGENT_APP_KICK_TOKEN: ${BLUEAGENT_APP_KICK_TOKEN:-}
+      BLUEAGENT_LLM_API_KEY: ${BLUEAGENT_LLM_API_KEY:-}
+      BLUEAGENT_AFFECT: "1"
+      BLUEAGENT_THREAD_REAP: "0"
+    command: ["python", "agent/tools/agent_container_entrypoint.py"]
+    ports:
+      - "8787:18790"
+    volumes:
+      - ./data:/app/data
+      - ./out:/app/out
+      - ./app-secrets:/run/app-secrets:ro
+    depends_on:
+      app-server:
+        condition: service_healthy
+
+  app-server:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+      BLUEAGENT_APP_HOST: 0.0.0.0
+      BLUEAGENT_APP_PORT: "8788"
+      BLUEAGENT_APP_KICK_URL: http://blueagent-next:18790/api/app/kick
+      BLUEAGENT_APP_KICK_TOKEN: ${BLUEAGENT_APP_KICK_TOKEN:-}
+      BLUEAGENT_BRAIN_URL: http://blueagent-next:18790
+      BLUEAGENT_APP_VOICE_TOKEN: ${BLUEAGENT_APP_VOICE_TOKEN:-}
+    ports:
+      - "8788:8788"
+    volumes:
+      - ./app-data:/app/data
+
+  app-gateway:
+    image: nginx:1.27-alpine
+    profiles: ["gateway"]
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./deploy/app-gateway.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - blueagent-next
+      - app-server

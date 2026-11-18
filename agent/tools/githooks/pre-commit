@@ -1,0 +1,24 @@
+#!/bin/sh
+# 提交前重產兩份「由程式碼生成」的文件，免得 test_file_tree／test_environment_table 在 main 上變紅
+# （2026-10-31：同一天紅了好幾次，每次都是新增檔案後忘了重產）。
+#
+# 啟用（每個 clone 一次）：git config core.hooksPath agent/tools/githooks
+# 只在這次提交**有新增／刪除／改名檔案**或動到 Python 時才跑；重產有變就自動加進這次提交。
+set -e
+cd "$(git rev-parse --show-toplevel)"
+PY="${PYTHON:-python3}"
+"$PY" -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)' 2>/dev/null || {
+  for cand in python3.12 python3.11 python3.10; do command -v "$cand" >/dev/null 2>&1 && PY="$cand" && break; done
+}
+
+changed_paths=$(git diff --cached --name-status --diff-filter=ADR | wc -l | tr -d ' ')
+changed_py=$(git diff --cached --name-only -- '*.py' | wc -l | tr -d ' ')
+
+if [ "$changed_paths" -gt 0 ]; then
+  "$PY" agent/tools/gen_file_tree.py >/dev/null
+  git add docs/FILE-TREE.md
+fi
+if [ "$changed_py" -gt 0 ]; then
+  "$PY" agent/tools/gen_env_table.py >/dev/null
+  git add docs/ENVIRONMENT.md
+fi

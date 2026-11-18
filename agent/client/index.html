@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>BlueAgent Next</title>
+<link rel="icon" href="/static/assets/logo.webp">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="scene">
+  <div class="scene-bg"></div>
+  <div class="scene-dim"></div>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <img class="logo" src="/static/assets/logo.webp" alt="">
+    <div class="brand-text">
+      <h1>BlueAgent <em>Next</em></h1>
+      <p>实体优先 · 无会话 · 自动切片 · 多源分流</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span class="engine" id="engine-chip">engine: mock-blueagent</span>
+    <button class="ghost" id="btn-debug">隐藏面板</button>
+    <button class="ghost danger" id="btn-reset">重置演示</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="phone">
+    <div class="phone-top">
+      <div class="entity-select" id="entity-select"></div>
+      <div class="mode-select" id="mode-select">
+        <button data-mode="direct">1:1</button>
+        <button data-mode="group">群聊</button>
+        <button data-mode="self">她自己</button>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-glow"></div>
+      <img class="portrait" id="stage-portrait" alt="">
+      <div class="stage-meta">
+        <div class="stage-name" id="entity-name">ミラ</div>
+        <div class="stage-sub" id="entity-sub">char_mira · 一直在线</div>
+        <div class="presence" id="presence"></div>
+      </div>
+      <div class="stage-note" id="stage-note">没有「新会话」按钮</div>
+    </div>
+
+    <div class="principal-bar">
+      <span class="label">现在说话的是</span>
+      <div class="pills" id="principal-pills"></div>
+      <label class="mention" id="mention-wrap">
+        <input type="checkbox" id="mention"> @她
+      </label>
+    </div>
+
+    <div class="call-banner" id="call-banner">
+      <span class="pulse"></span>
+      <span id="call-text">通话中 · Discord</span>
+      <button id="call-hangup">挂断</button>
+    </div>
+
+    <div class="room-bar" id="room-bar">
+      <span class="label">在场</span>
+      <div class="pills" id="room-pills"></div>
+      <span class="room-hint">可见域按“在场的人”算</span>
+    </div>
+
+    <div class="quick" id="quick"></div>
+
+    <div class="timeline" id="timeline">
+      <div class="empty" id="empty">
+        <p>这里没有「新会话」。</p>
+        <p class="dim">同一个人、同一个角色，跨端只有一条连续的时间线。<br>换场景才分线，记忆不跟着断。</p>
+      </div>
+    </div>
+
+    <div class="composer">
+      <textarea id="input" rows="1" placeholder="对她说点什么…（Enter 发送，Shift+Enter 换行）"></textarea>
+      <button id="send" class="send">送出</button>
+    </div>
+    <div class="composer-hint" id="hint">自动切片：闲置 90s / 6 轮 / 1600 字；封片后她仍记得。</div>
+  </section>
+
+  <aside class="debug" id="debug">
+    <div class="debug-head">
+      <span>内部视角</span>
+      <span class="debug-sub" id="debug-sub">route / memory / episodes</span>
+    </div>
+    <div class="debug-tabs" id="debug-tabs">
+      <button data-tab="route" class="active">路由</button>
+      <button data-tab="activity">她的事</button>
+      <button data-tab="voice">语音</button>
+      <button data-tab="guests">访客</button>
+      <button data-tab="memory">记忆</button>
+      <button data-tab="relations">关系</button>
+      <button data-tab="episodes">片段</button>
+      <button data-tab="threads">线程</button>
+      <button data-tab="schedule">调度</button>
+    </div>
+    <div class="debug-body">
+      <div class="tab-panel active" id="tab-route"></div>
+      <div class="tab-panel" id="tab-activity"></div>
+      <div class="tab-panel" id="tab-voice"></div>
+      <div class="tab-panel" id="tab-guests"></div>
+      <div class="tab-panel" id="tab-memory"></div>
+      <div class="tab-panel" id="tab-relations"></div>
+      <div class="tab-panel" id="tab-episodes"></div>
+      <div class="tab-panel" id="tab-threads"></div>
+      <div class="tab-panel" id="tab-schedule"></div>
+    </div>
+  </aside>
+</main>
+
+<div class="toast" id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

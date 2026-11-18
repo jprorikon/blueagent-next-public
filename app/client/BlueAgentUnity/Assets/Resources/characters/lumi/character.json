@@ -1,0 +1,18 @@
+{
+  "id": "lumi",
+  "order": 4,
+  "name": "ルミ",
+  "short_name": "LUMI",
+  "tag": "ORIGINAL CHARACTER",
+  "school": "BLUEAGENT\nSTUDIO",
+  "images": {
+    "normal": "lumi-icon.png",
+    "speaking": "lumi-icon.png",
+    "thinking": "lumi-icon.png"
+  },
+  "wake": "ルミ",
+  "voice": {
+    "library": "lumi",
+    "label": ""
+  }
+}

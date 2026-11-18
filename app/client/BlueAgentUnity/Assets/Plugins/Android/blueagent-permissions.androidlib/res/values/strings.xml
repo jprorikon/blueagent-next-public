@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BlueAgent</string>
+    <string name="notif_channel_name">收音中</string>
+    <string name="notif_channel_desc">BlueAgent 正在听与说</string>
+    <!-- 「看截图」のアクセシビリティ画面に出る説明（owner 2026-10-03） -->
+    <string name="see_service_summary">画面を撮ってオーナーに見せる（天気の次に作った機能）</string>
+    <string name="see_service_desc">有効にすると小さな丸いボタンが出ます。押すと「今の画面」を撮って、切り抜きを選び、一言そえて彼女に送ります。画面の中身を読むことはしません（撮って送るだけ）。</string>
+    <!-- リマインド（owner 2026-10-06）：「○時に教えて」＝定刻に彼女の方から知らせる通知。
+         上の「收音中」チャンネルとは別（あちらは LOW・消せない／こちらは HIGH・押したら消える）。 -->
+    <string name="notif_remind_channel_name">リマインド</string>
+    <string name="notif_remind_channel_desc">約束した時刻に教える（「○時に教えて」）</string>
+</resources>

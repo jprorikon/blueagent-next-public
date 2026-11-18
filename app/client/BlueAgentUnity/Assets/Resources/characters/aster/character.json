@@ -1,0 +1,85 @@
+{
+  "id": "aster",
+  "order": 1,
+  "name": "アスター",
+  "short_name": "ASTER",
+  "tag": "ORIGINAL CHARACTER",
+  "school": "BLUEAGENT\nSTUDIO",
+  "images": {
+    "normal": "animated-normal.png",
+    "speaking": "animated-mouth-o.png",
+    "thinking": "animated-thinking.png"
+  },
+  "animations": {
+    "normal": {
+      "frames": [
+        {
+          "file": "animated-normal.png",
+          "duration_ms": 3100
+        },
+        {
+          "file": "animated-blink.png",
+          "duration_ms": 110
+        },
+        {
+          "file": "animated-normal.png",
+          "duration_ms": 180
+        },
+        {
+          "file": "animated-blink.png",
+          "duration_ms": 90
+        },
+        {
+          "file": "animated-normal.png",
+          "duration_ms": 4200
+        }
+      ]
+    },
+    "thinking": {
+      "frames": [
+        {
+          "file": "animated-thinking.png",
+          "duration_ms": 2700
+        },
+        {
+          "file": "animated-thinking-blink.png",
+          "duration_ms": 120
+        },
+        {
+          "file": "animated-thinking.png",
+          "duration_ms": 3900
+        }
+      ]
+    },
+    "speaking": {
+      "transition_ms": 0,
+      "frames": [
+        {
+          "file": "animated-mouth-a.png",
+          "duration_ms": 4000
+        },
+        {
+          "file": "animated-mouth-i.png",
+          "duration_ms": 4000
+        },
+        {
+          "file": "animated-mouth-u-v2.png",
+          "duration_ms": 4000
+        },
+        {
+          "file": "animated-mouth-e.png",
+          "duration_ms": 4000
+        },
+        {
+          "file": "animated-mouth-o.png",
+          "duration_ms": 4000
+        }
+      ]
+    }
+  },
+  "wake": "アスター",
+  "voice": {
+    "library": "aster",
+    "label": ""
+  }
+}

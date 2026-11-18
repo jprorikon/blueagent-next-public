@@ -1,0 +1,628 @@
+{
+  "stickers": [
+    {
+      "id": "000_hellooo",
+      "file": "000_hellooo.png",
+      "label": "Geo 000",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "001_yes",
+      "file": "001_yes.png",
+      "label": "Geo 001",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "002_let_s_go",
+      "file": "002_let_s_go.png",
+      "label": "Geo 002",
+      "meaning": "応援している"
+    },
+    {
+      "id": "003_dizzy",
+      "file": "003_dizzy.png",
+      "label": "Geo 003",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "004_disgusting",
+      "file": "004_disgusting.png",
+      "label": "Geo 004",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "005_i_see",
+      "file": "005_i_see.png",
+      "label": "Geo 005",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "006_dunno",
+      "file": "006_dunno.png",
+      "label": "Geo 006",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "007_bonk",
+      "file": "007_bonk.png",
+      "label": "Geo 007",
+      "meaning": "考えている"
+    },
+    {
+      "id": "008_no",
+      "file": "008_no.png",
+      "label": "Geo 008",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "009_sniffle",
+      "file": "009_sniffle.png",
+      "label": "Geo 009",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "010_so_happy",
+      "file": "010_so_happy.png",
+      "label": "Geo 010",
+      "meaning": "応援している"
+    },
+    {
+      "id": "011_too_far",
+      "file": "011_too_far.png",
+      "label": "Geo 011",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "012_um_owner",
+      "file": "012_um_owner.png",
+      "label": "Geo 012",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "013_smug_phone",
+      "file": "013_smug_phone.png",
+      "label": "Geo 013",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "014_lol",
+      "file": "014_lol.png",
+      "label": "Geo 014",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "015_crying",
+      "file": "015_crying.png",
+      "label": "Geo 015",
+      "meaning": "考えている"
+    },
+    {
+      "id": "016_shocked",
+      "file": "016_shocked.png",
+      "label": "Geo 016",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "017_nite_nite",
+      "file": "017_nite_nite.png",
+      "label": "Geo 017",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "018_can_t_deal",
+      "file": "018_can_t_deal.png",
+      "label": "Geo 018",
+      "meaning": "応援している"
+    },
+    {
+      "id": "019_dunno",
+      "file": "019_dunno.png",
+      "label": "Geo 019",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "020_bonk",
+      "file": "020_bonk.png",
+      "label": "Geo 020",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "021_denied",
+      "file": "021_denied.png",
+      "label": "Geo 021",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "022_awesome_and_bright",
+      "file": "022_awesome_and_bright.png",
+      "label": "Geo 022",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "023_waaah",
+      "file": "023_waaah.png",
+      "label": "Geo 023",
+      "meaning": "考えている"
+    },
+    {
+      "id": "024_hee_hee",
+      "file": "024_hee_hee.png",
+      "label": "Geo 024",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "025_nite_nite",
+      "file": "025_nite_nite.png",
+      "label": "Geo 025",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "026_welcome",
+      "file": "026_welcome.png",
+      "label": "Geo 026",
+      "meaning": "応援している"
+    },
+    {
+      "id": "027_loveeee",
+      "file": "027_loveeee.png",
+      "label": "Geo 027",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "028_scroll_deadpan",
+      "file": "028_scroll_deadpan.png",
+      "label": "Geo 028",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "029_sooo_hot",
+      "file": "029_sooo_hot.png",
+      "label": "Geo 029",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "030_so_unfair",
+      "file": "030_so_unfair.png",
+      "label": "Geo 030",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "031_hello_owner",
+      "file": "031_hello_owner.png",
+      "label": "Geo 031",
+      "meaning": "考えている"
+    },
+    {
+      "id": "032_hello",
+      "file": "032_hello.png",
+      "label": "Geo 032",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "033_gift_hug",
+      "file": "033_gift_hug.png",
+      "label": "Geo 033",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "034_you_can_do_it",
+      "file": "034_you_can_do_it.png",
+      "label": "Geo 034",
+      "meaning": "応援している"
+    },
+    {
+      "id": "035_thank_you",
+      "file": "035_thank_you.png",
+      "label": "Geo 035",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "036_gaaah",
+      "file": "036_gaaah.png",
+      "label": "Geo 036",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "037_are_you_okay",
+      "file": "037_are_you_okay.png",
+      "label": "Geo 037",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "038_annoyed_gun",
+      "file": "038_annoyed_gun.png",
+      "label": "Geo 038",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "039_huh",
+      "file": "039_huh.png",
+      "label": "Geo 039",
+      "meaning": "考えている"
+    },
+    {
+      "id": "040_confused",
+      "file": "040_confused.png",
+      "label": "Geo 040",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "041_here_we_go",
+      "file": "041_here_we_go.png",
+      "label": "Geo 041",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "042_no",
+      "file": "042_no.png",
+      "label": "Geo 042",
+      "meaning": "応援している"
+    },
+    {
+      "id": "043_calm_cat",
+      "file": "043_calm_cat.png",
+      "label": "Geo 043",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "044_waah",
+      "file": "044_waah.png",
+      "label": "Geo 044",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "045_good_game",
+      "file": "045_good_game.png",
+      "label": "Geo 045",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "046_shiver_shiver",
+      "file": "046_shiver_shiver.png",
+      "label": "Geo 046",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "047_nice",
+      "file": "047_nice.png",
+      "label": "Geo 047",
+      "meaning": "考えている"
+    },
+    {
+      "id": "048_blank_stare",
+      "file": "048_blank_stare.png",
+      "label": "Geo 048",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "049_ok",
+      "file": "049_ok.png",
+      "label": "Geo 049",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "050_good_night",
+      "file": "050_good_night.png",
+      "label": "Geo 050",
+      "meaning": "応援している"
+    },
+    {
+      "id": "051_listen_up",
+      "file": "051_listen_up.png",
+      "label": "Geo 051",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "052_hands_up",
+      "file": "052_hands_up.png",
+      "label": "Geo 052",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "053_gimme",
+      "file": "053_gimme.png",
+      "label": "Geo 053",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "054_moar_pls",
+      "file": "054_moar_pls.png",
+      "label": "Geo 054",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "055_goat_game",
+      "file": "055_goat_game.png",
+      "label": "Geo 055",
+      "meaning": "考えている"
+    },
+    {
+      "id": "056_cool",
+      "file": "056_cool.png",
+      "label": "Geo 056",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "057_noo",
+      "file": "057_noo.png",
+      "label": "Geo 057",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "058_thanks",
+      "file": "058_thanks.png",
+      "label": "Geo 058",
+      "meaning": "応援している"
+    },
+    {
+      "id": "059_let_s_go",
+      "file": "059_let_s_go.png",
+      "label": "Geo 059",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "060_da_best",
+      "file": "060_da_best.png",
+      "label": "Geo 060",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "061_g_a_h_h",
+      "file": "061_g_a_h_h.png",
+      "label": "Geo 061",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "062_um_owner",
+      "file": "062_um_owner.png",
+      "label": "Geo 062",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "063_wahh",
+      "file": "063_wahh.png",
+      "label": "Geo 063",
+      "meaning": "考えている"
+    },
+    {
+      "id": "064_brool",
+      "file": "064_brool.png",
+      "label": "Geo 064",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "065_dunno",
+      "file": "065_dunno.png",
+      "label": "Geo 065",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "066_grats",
+      "file": "066_grats.png",
+      "label": "Geo 066",
+      "meaning": "応援している"
+    },
+    {
+      "id": "067_dizzy_tongue",
+      "file": "067_dizzy_tongue.png",
+      "label": "Geo 067",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "068_let_s_go",
+      "file": "068_let_s_go.png",
+      "label": "Geo 068",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "069_friend_me",
+      "file": "069_friend_me.png",
+      "label": "Geo 069",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "070_thanks_owner",
+      "file": "070_thanks_owner.png",
+      "label": "Geo 070",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "071_sigh",
+      "file": "071_sigh.png",
+      "label": "Geo 071",
+      "meaning": "考えている"
+    },
+    {
+      "id": "072_kudos",
+      "file": "072_kudos.png",
+      "label": "Geo 072",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "073_praying",
+      "file": "073_praying.png",
+      "label": "Geo 073",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "074_owner",
+      "file": "074_owner.png",
+      "label": "Geo 074",
+      "meaning": "応援している"
+    },
+    {
+      "id": "075_da_best",
+      "file": "075_da_best.png",
+      "label": "Geo 075",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "076_chow_time",
+      "file": "076_chow_time.png",
+      "label": "Geo 076",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "077_dash",
+      "file": "077_dash.png",
+      "label": "Geo 077",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "078_hm",
+      "file": "078_hm.png",
+      "label": "Geo 078",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "079_great_work",
+      "file": "079_great_work.png",
+      "label": "Geo 079",
+      "meaning": "考えている"
+    },
+    {
+      "id": "080_sus",
+      "file": "080_sus.png",
+      "label": "Geo 080",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "081_dunno",
+      "file": "081_dunno.png",
+      "label": "Geo 081",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "082_bonk",
+      "file": "082_bonk.png",
+      "label": "Geo 082",
+      "meaning": "応援している"
+    },
+    {
+      "id": "083_ah_ru",
+      "file": "083_ah_ru.png",
+      "label": "Geo 083",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "084_complete",
+      "file": "084_complete.png",
+      "label": "Geo 084",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "085_congrats",
+      "file": "085_congrats.png",
+      "label": "Geo 085",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "086_blush_bubble",
+      "file": "086_blush_bubble.png",
+      "label": "Geo 086",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "087_binoculars",
+      "file": "087_binoculars.png",
+      "label": "Geo 087",
+      "meaning": "考えている"
+    },
+    {
+      "id": "088_clap_clap_clap",
+      "file": "088_clap_clap_clap.png",
+      "label": "Geo 088",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "089_annoyed_hat",
+      "file": "089_annoyed_hat.png",
+      "label": "Geo 089",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "090_baka",
+      "file": "090_baka.png",
+      "label": "Geo 090",
+      "meaning": "応援している"
+    },
+    {
+      "id": "091_busy_busy",
+      "file": "091_busy_busy.png",
+      "label": "Geo 091",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "092_wow",
+      "file": "092_wow.png",
+      "label": "Geo 092",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "093_happy",
+      "file": "093_happy.png",
+      "label": "Geo 093",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "094_roger",
+      "file": "094_roger.png",
+      "label": "Geo 094",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "095_yup_yup",
+      "file": "095_yup_yup.png",
+      "label": "Geo 095",
+      "meaning": "考えている"
+    },
+    {
+      "id": "096_digging_in",
+      "file": "096_digging_in.png",
+      "label": "Geo 096",
+      "meaning": "元気なあいさつ"
+    },
+    {
+      "id": "097_pant_pant",
+      "file": "097_pant_pant.png",
+      "label": "Geo 097",
+      "meaning": "同意・了解"
+    },
+    {
+      "id": "098_annoyed_glare",
+      "file": "098_annoyed_glare.png",
+      "label": "Geo 098",
+      "meaning": "応援している"
+    },
+    {
+      "id": "099_reading_maid",
+      "file": "099_reading_maid.png",
+      "label": "Geo 099",
+      "meaning": "少し困っている"
+    },
+    {
+      "id": "100_peeking_shy",
+      "file": "100_peeking_shy.png",
+      "label": "Geo 100",
+      "meaning": "ありがとう"
+    },
+    {
+      "id": "101_hee_hee",
+      "file": "101_hee_hee.png",
+      "label": "Geo 101",
+      "meaning": "おやすみ"
+    },
+    {
+      "id": "102_wink_gun",
+      "file": "102_wink_gun.png",
+      "label": "Geo 102",
+      "meaning": "驚いている"
+    },
+    {
+      "id": "103_sad_hood",
+      "file": "103_sad_hood.png",
+      "label": "Geo 103",
+      "meaning": "考えている"
+    }
+  ]
+}

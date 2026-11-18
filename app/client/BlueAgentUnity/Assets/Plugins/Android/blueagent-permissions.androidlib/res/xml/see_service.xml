@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 「看截图」のアクセシビリティ設定（owner 2026-10-03：手機自己的屏 → 圈選 → 搭配一句話送出）。
+
+     使うのは **takeScreenshot() だけ**：
+     * `canTakeScreenshot="true"` が無いと takeScreenshot() は失敗する（これがこのサービスの存在理由）。
+     * `canRetrieveWindowContent="false"`：画面の中身は**読まない**（撮るだけ）。読み取りは橋側の VL。
+     * イベントは購読しないつもりだが、属性は空にできないので window state だけ受けて**全部捨てる**
+       （onAccessibilityEvent は空実装）。
+     このサービスを有効にすると**浮き球が出る**。球は `TYPE_ACCESSIBILITY_OVERLAY` で描くので
+     **SYSTEM_ALERT_WINDOW は要らない**（＝権限を二つに増やさないための選択）。 -->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:notificationTimeout="200"
+    android:canRetrieveWindowContent="false"
+    android:canTakeScreenshot="true"
+    android:description="@string/see_service_desc"
+    android:summary="@string/see_service_summary" />

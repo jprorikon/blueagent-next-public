@@ -1,0 +1,36 @@
+<Project>
+
+  <!--
+    `dotnet build` / `dotnet test` 的產物**不要**落在 UPM 本地包裡面。
+
+    為什麼（2026-10-20 實測，出包日誌抓到的）：
+    `shared/BlueAgent.Logic/` 同時是 `BlueAgentUnity/Packages/manifest.json` 用
+    `file:../../shared/BlueAgent.Logic` 指到的 **UPM 本地包**。只要有人在那個資料夾裡跑過
+    `dotnet test`，`obj/` 就會長出 `BlueAgent.Logic.dll`，而 Unity 會把它當**預編譯插件**匯入：
+
+      ・warning CS0436 ×392（`JsonParseException` 與 imported type 衝突）
+      ・`TypeDB: Class 'BlueAgent.Logic.Engine.JsonParseException' was already registered`
+      ・`Plugin '.../obj/Debug/netstandard2.1/BlueAgent.Logic.dll' has the same filename
+         as Assembly Definition File '.../BlueAgent.Logic.asmdef'`
+
+    ⇒ 同一批型別從 asmdef 與 DLL 各編一次。刪掉 `bin/`、`obj/` 再編，CS0436 與重複註冊都歸零
+    （已驗證）。也就是說：**「先跑單測、再開 Unity」＝把雙重註冊帶進出貨物**。
+
+    `Directory.Build.props` 是由 `Microsoft.Common.props` 在評估初期讀進來的，
+    `BaseIntermediateOutputPath` 要覆寫就得寫在這裡（寫進 csproj 本體對 restore 來說太晚）。
+    產物統一放到 `<unity repo>/.build/`：在 Assets 外、在 UPM 包外，且已被 `.gitignore` 擋掉。
+  -->
+  <PropertyGroup>
+    <BaseOutputPath>$(MSBuildThisFileDirectory)../.build/bin/$(MSBuildProjectName)/</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)../.build/obj/$(MSBuildProjectName)/</BaseIntermediateOutputPath>
+    <!--
+      ⚠️ 2026-10-20（外部評審 P1-1，實測重現）：`BaseIntermediateOutputPath` 搬家之後，SDK 的預設 glob
+      **只排除新路徑**，專案目錄裡**舊的** `obj/**/AssemblyInfo.cs` 會被當成原始碼收回來，與新產物各一份：
+        error CS0579: 'global::System.Runtime.Versioning.TargetFrameworkAttribute' 属性が重複しています（共 8~9 條）
+      新 clone 不會中，**存量工作區（NAS／建置機，跑過舊版 dotnet test）一拉就炸**。
+      ⇒ 舊路徑也要排除。**一定要用相對形式**（`obj/**;bin/**`）：`DefaultItemExcludes` 是拿來比對
+      item 的**相對識別碼**的，絕對路徑 glob 實測對不上（`-getItem:Compile` 裡那個档還在）。
+    -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj/**;bin/**</DefaultItemExcludes>
+  </PropertyGroup>
+</Project>

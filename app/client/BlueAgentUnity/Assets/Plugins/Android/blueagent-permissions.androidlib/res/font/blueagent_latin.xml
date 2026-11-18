@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 拉丁字面（Regular／Bold）——給原生 UI 用，讓英文標籤與數字跟網頁版逐字同寬。
+     來源與重製方式見 tools/build_latin_font_subset.py 與 README「第三方」節：
+     自裝置的 Noto Sans CJK TC 抽 TC 臉 → 實例化 wght 400/700 → 只留拉丁子集（51 KB × 2）。
+     只放拉丁是刻意的：CJK 交給系統字型（地區變體才對），拉丁才是兩邊原本對不上的部分。 -->
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font android:fontStyle="normal" android:fontWeight="400"
+        android:font="@font/blueagent_latin_regular" />
+    <font android:fontStyle="normal" android:fontWeight="700"
+        android:font="@font/blueagent_latin_bold" />
+</font-family>
